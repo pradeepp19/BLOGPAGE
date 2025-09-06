@@ -24,7 +24,7 @@ return(
 
   <div className = "self-auto">
   <nav className=" relative w-screen bg-white dark:bg-gray-900 shadow-md px-8 h-16  flex justify-between items-center font-poppins">
-    <Link to="/home"  className="text-4xl font-bold text-blue-600 dark:text-blue-400 text-center w-full md:w-auto md:text-left">
+    <Link to="/"  className="text-4xl font-bold text-blue-600 dark:text-blue-400 text-center w-full md:w-auto md:text-left">
     Blog<span className="text-gray-800 dark:text-gray-200">Page</span>
     </Link>
 
