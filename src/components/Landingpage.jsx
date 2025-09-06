@@ -38,7 +38,6 @@ function Landinpage () {
             
         </div>
 
-
     </div>
     );
 }
