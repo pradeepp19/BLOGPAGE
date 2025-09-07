@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/blog", blogRoutes);
+app.use("/api/v1/blogs", blogRoutes);
 
 async function main() {
     await mongoose.connect(process.env.MONGO_URL)
