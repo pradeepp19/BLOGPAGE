@@ -9,7 +9,7 @@ const { blogRoutes } = require("./routes/blog.js");
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:5173", // React dev server
+  origin: "http://localhost:5173", 
   credentials: true
 }));
 

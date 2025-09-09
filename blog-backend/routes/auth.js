@@ -7,7 +7,8 @@ const router = express.Router();
 
 router.post("/signup",async (req,res) => {
     try {
-        const{ username, email, password} = req.body;
+        let { username, email, password} = req.body;
+        email = email.toLowerCase();
 
         const existingUser = await User.findOne({ email });
         if(existingUser) return res.status(404).json({message:"User already exists"});
@@ -29,7 +30,8 @@ router.post("/signup",async (req,res) => {
 
 router.post("/login",async (req, res) => {
     try{
-        const { email, password } = req.body;
+        let { email, password } = req.body;
+        email = email.toLowerCase();
 
         const user = await User.findOne({email});
         if(!user) return res.status(404).json({message: "User not found"});
@@ -38,7 +40,8 @@ router.post("/login",async (req, res) => {
         if(!isPasswordValid) return res.status(400).json({message:"Inavalid Credentials"});
 
         const token = jwt.sign (
-            {id:user._id}, process.env.JWT_SECRET
+            {id:user._id},
+             process.env.JWT_SECRET
         );
         res.json({token});
     } catch(err) {
