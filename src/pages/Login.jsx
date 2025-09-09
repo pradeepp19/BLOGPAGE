@@ -1,8 +1,38 @@
 import { useState } from "react";
 import loginImage from "../assets/login.svg"
 import { Eye ,EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
+
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const navigate = useNavigate();
+
+    const handleLogin = async(e) => {
+        e.preventDefault();
+        try {
+            const res = await fetch(`${API_URL}/api/v1/auth/login`, {
+                method:"POST",
+                headers: {"Content-Type": "application/json"},
+                body:JSON.stringify({email,password})  
+            });
+            const data = await res.json();
+            if (res.ok) {
+            localStorage.setItem("token", data.token); 
+            navigate("/blogs");
+        } else {
+            alert(data.message || "Login failed ❌");
+        
+        }
+    } catch(err) {
+        console.error("Login error:", err);
+        }
+    };
+
+
     return(
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-gray-900">
         <div className="flex flex-col justify-center items-center p-6 h-screen w-full ">
@@ -10,11 +40,15 @@ function Login() {
              Sign<span className="ml-2 text-gray-800 dark:text-white">In</span> 
             </h1>
 
-     <form className="w-full max-w-sm space-y-4 dark:text-white ">
+     <form
+      onSubmit={handleLogin}
+      className="w-full max-w-sm space-y-4 dark:text-white ">
     <label className="flex justify-start text-black-1000 font-medium mb-1">Email</label>
         <input type="email" 
         placeholder="john@gmail.com"
         className="w-full p-3 border rounded-lg" 
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         />
         <div className="relative">
         <label className="flex justify-start text-black-1000 font-medium mb-1 ">Password</label>
@@ -22,6 +56,8 @@ function Login() {
          type={showPassword ? "text" : "password" } 
         placeholder="............."
         className="w-full p-3 border rounded-lg"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         />
         <button
         type ="button"
@@ -35,7 +71,10 @@ function Login() {
             )}
         </button>
         </div>
-        <button className="cursor-pointer flex justify-self-center text-white px-4 py-2 rounded-lg bg-blue-600 transition delay-10 duration-300 ease-in-out hover:scale-110 hover:bg-blue-600">Sign in</button>
+        <button
+         className="cursor-pointer flex justify-self-center text-white px-4 py-2 rounded-lg bg-blue-600 transition delay-10 duration-300 ease-in-out hover:scale-110 hover:bg-blue-600">
+            Sign in
+            </button>
          </form>
         </div>
 

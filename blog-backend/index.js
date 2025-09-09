@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 require("dotenv").config()
 
 const { authRoutes } = require("./routes/auth.js");
@@ -7,6 +8,11 @@ const { blogRoutes } = require("./routes/blog.js");
 
 
 const app = express();
+app.use(cors({
+  origin: "http://localhost:5173", // React dev server
+  credentials: true
+}));
+
 app.use(express.json());
 
 app.use("/api/v1/auth", authRoutes);
