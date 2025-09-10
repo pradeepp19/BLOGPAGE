@@ -14,7 +14,7 @@ function Login() {
     const handleLogin = async(e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`${API_URL}/api/v1/auth/login`, {
+            const res = await fetch(`${API_URL}/auth/login`, {
                 method:"POST",
                 headers: {"Content-Type": "application/json"},
                 body:JSON.stringify({email,password})  
@@ -72,6 +72,7 @@ function Login() {
         </button>
         </div>
         <button
+        type="submit"
          className="cursor-pointer flex justify-self-center text-white px-4 py-2 rounded-lg bg-blue-600 transition delay-10 duration-300 ease-in-out hover:scale-110 hover:bg-blue-600">
             Sign in
             </button>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 export default function CreateBlog() {
   const [title, setTitle] = useState("");
@@ -11,7 +12,9 @@ export default function CreateBlog() {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:3000/api/v1/blog", {
+      console.log("Token being sent:", token);
+
+      const res = await fetch(`${API_URL}/blogs`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

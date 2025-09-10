@@ -25,7 +25,6 @@ export default function BlogCard({ blog }) {
         >
           Read More
         </a>
-        {/* Only show delete if blog belongs to logged-in user */}
         {localStorage.getItem("userId") === blog.author?._id && (
           <button className="text-red-500 hover:underline">Delete</button>
         )}
