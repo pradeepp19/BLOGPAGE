@@ -18,6 +18,8 @@ function App() {
         <Route path="/login" element = {<Login />} />
         <Route path="/blogs" element = {<BlogPage />} />
         <Route path="/create" element={<CreateBlog />} />
+        <Route path="/blogs/:id" element={<BlogDetails />} />
+
       </Routes>
       </main>
       <Footer />

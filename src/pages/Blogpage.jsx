@@ -26,14 +26,16 @@ export default function BlogPage() {
 
     
     return (
+
     <div className="p-6">
+      <div className="flex items-center justify-between mb-8"> 
       <h1 className="text-2xl font-bold mb-4">All Blogs</h1>
       <Link
       to="/create"
-      className="bg-blue-600 text-white px- py-3 rounded hover:bg-blue-700">
+      className="flex items-center justify-center bg-blue-600 text-white px-8 py-4 rounded hover:bg-blue-700">
         + Create Blog
       </Link>
-
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => (

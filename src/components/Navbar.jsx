@@ -1,11 +1,23 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const[isOpen,setIsOpen] = useState(false);
   const[darkMode, setDarkMode]=useState( () => {
     return localStorage.getItem("theme") === "dark";
   });
+  const[username,setUsername] = useState(localStorage.getItem("username"));
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    setUsername(null);
+    navigate("/");
+  }
+
+
+
   useEffect( ()=> {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -44,6 +56,25 @@ return(
           </svg>)}
         </button>
       </li>
+
+    {username ? (
+      <>
+      <li className="flex  justify-center h-full">
+        <Link to = "/account" className=" text-blue-600 pt-2">
+        {username}
+        </Link>
+      </li>
+      <li>
+      <button
+      onClick={handleLogout}
+      className="bg-red-600 text-white px-4 py-2 rounded"
+      >
+        Logout
+      </button>
+      </li>
+      </>
+    ) : (
+      <> 
     <li>
      <Link to="/login"  >
       <button className="cursor-pointer text-white px-4 py-2 rounded-lg bg-blue-600 transition delay-10 duration-300 ease-in-out hover:scale-110 hover:bg-blue-600">
@@ -58,6 +89,8 @@ return(
       </button> 
     </Link> 
     </li>
+    </>
+)}
    </ul>
    </div>
 

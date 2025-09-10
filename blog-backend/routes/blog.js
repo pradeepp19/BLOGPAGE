@@ -38,7 +38,7 @@ router.get("/",authMiddleware,async (req, res) => {
 
 
 
-router.delete("/:id", authMiddleware ,async(req,res) =>
+router.delete("/blogs/:id", authMiddleware ,async(req,res) =>
  {
     try {
         const blog = await Blog.findById(req.params.id);

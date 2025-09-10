@@ -22,6 +22,7 @@ export default function CreateBlog() {
         },
         body: JSON.stringify({ title, content }),
       });
+      
 
       if (!res.ok) {
         throw new Error("Failed to create blog");
@@ -34,31 +35,40 @@ export default function CreateBlog() {
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Create New Blog</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="p-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="flex items-center justify-between mb-8">
+      <h1 className="text-4xl font-bold dark:text-white mb-4">Create New Blog</h1>
+         <button 
+         type="submit" 
+         className="flex items-center justify-center bg-blue-600 text-white px-8 py-4 rounded hover:bg-blue-700" >
+         Publish Blog 
+         </button> 
+    </div>
+
+      
+
         <input
           type="text"
           placeholder="Blog Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full border p-2 rounded"
+          className="w-full text-4xl font-bold border placeholder-gray-400 focus:outline-none bg-transparent p-6 rounded"
           required
         />
+
+        
         <textarea
           placeholder="Blog Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="w-full border p-2 rounded h-40"
+          className="w-full min-h-[60vh] resize-none placeholder-gray-400 focus:outline-none mt-6 bg-transparent text-lg leading-relaxed text-gray-800"
           required
         />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          Publish Blog
-        </button>
-      </form>
+
+     
+    </form>
     </div>
+    
   );
 }

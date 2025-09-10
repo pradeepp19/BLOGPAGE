@@ -22,6 +22,7 @@ function Login() {
             const data = await res.json();
             if (res.ok) {
             localStorage.setItem("token", data.token); 
+            localStorage.setItem("username", data.username);
             navigate("/blogs");
         } else {
             alert(data.message || "Login failed ❌");
@@ -53,7 +54,7 @@ function Login() {
         <div className="relative">
         <label className="flex justify-start text-black-1000 font-medium mb-1 ">Password</label>
         <input
-         type={showPassword ? "text" : "password" } 
+        type={showPassword ? "text" : "password" } 
         placeholder="............."
         className="w-full p-3 border rounded-lg"
         value={password}

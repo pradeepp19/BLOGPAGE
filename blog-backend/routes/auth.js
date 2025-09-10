@@ -40,10 +40,11 @@ router.post("/login",async (req, res) => {
         if(!isPasswordValid) return res.status(400).json({message:"Inavalid Credentials"});
 
         const token = jwt.sign (
-            {id:user._id},
-             process.env.JWT_SECRET
+            {id:user._id, username:user.username },
+             process.env.JWT_SECRET,
+            { expiresIn: "1d" }
         );
-        res.json({token});
+        res.json({token, username:user.username });
     } catch(err) {
         res.status(500).json({error: err.message});
     }
