@@ -27,7 +27,7 @@ try {
 
 router.get("/",authMiddleware,async (req, res) => {
     try{
-        const blogs = await Blog.find();
+        const blogs = await Blog.find().populate("author", "username");
         res.json(blogs);
 
     }catch(err){
@@ -38,7 +38,9 @@ router.get("/",authMiddleware,async (req, res) => {
 
 
 
-router.delete("/blogs/:id", authMiddleware ,async(req,res) =>
+
+
+router.delete("/:id", authMiddleware ,async(req,res) =>
  {
     try {
         const blog = await Blog.findById(req.params.id);
@@ -57,5 +59,21 @@ router.delete("/blogs/:id", authMiddleware ,async(req,res) =>
     res.status(500).json({ message: "Error deleting blog", error: err.message });
   }
 });
+
+
+router.get("/:id", authMiddleware, async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id).populate("author", "username email");
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+    res.json(blog);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching blog", error: err.message });
+  }
+});
+
 
 module.exports = {blogRoutes : router};

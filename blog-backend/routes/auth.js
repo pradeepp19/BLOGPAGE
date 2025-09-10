@@ -2,6 +2,9 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const  jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const Blog = require("../models/Blog");
+const authMiddleware = require("../middleware/authmiddleware");
+
 
 const router = express.Router();
 
@@ -48,5 +51,18 @@ router.post("/login",async (req, res) => {
     } catch(err) {
         res.status(500).json({error: err.message});
     }
+});
+
+router.get("/me", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("username bio");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const blogs = await Blog.find({ author: req.userId }).sort({ createdAt: -1 });
+
+    res.json({ user, blogs });
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching account info", error: err.message });
+  }
 });
 module.exports = { authRoutes: router };
